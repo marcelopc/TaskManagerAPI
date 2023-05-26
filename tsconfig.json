@@ -3,7 +3,7 @@
     "target": "es2021",
     "moduleResolution": "node",
     "module": "commonjs",
-    "lib": ["es2021"],
+    "lib": ["es6"],
     "sourceMap": true,
     "outDir": "dist",
     "strict": true,
@@ -20,9 +20,6 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["./src/*"],
-      "@test/*": ["./test/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@config/*": ["./config/*"]
     },
     "rootDirs": [
       "./src",
