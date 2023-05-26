@@ -84,5 +84,3 @@ Contributions are welcome! If you encounter any issues or have suggestions for i
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 ```
-
-Esse é o markdown atualizado para o arquivo README.md, com as informações relevantes para configurar e executar o projeto.
