@@ -1,9 +1,8 @@
-```markdown
 # TaskManagerAPI
 
-TaskManagerAPI is a backend application for task management that utilizes MongoDB as the database. This project allows users to create, track, and manage their daily tasks, providing features such as user registration, authentication, task creation, status updates, task assignment to specific users, and task search.
+TaskManagerAPI é uma aplicação backend para gerenciamento de tarefas que utiliza o MongoDB como banco de dados. Este projeto permite que os usuários criem, acompanhem e gerenciem suas tarefas diárias, fornecendo recursos como registro de usuários, autenticação, criação de tarefas, atualização de status, atribuição de tarefas a usuários específicos e pesquisa de tarefas.
 
-## Technologies Used
+## Tecnologias Utilizadas
 
 - Node.js
 - Express.js
@@ -12,73 +11,72 @@ TaskManagerAPI is a backend application for task management that utilizes MongoD
 - Mongoose
 - JSON Web Tokens (JWT)
 
-## Prerequisites
+## Pré-requisitos
 
-Make sure you have Docker installed on your machine. You can download Docker at: [https://www.docker.com/get-started](https://www.docker.com/get-started)
+Certifique-se de ter o Docker instalado em sua máquina. Você pode baixar o Docker em: [https://www.docker.com/get-started](https://www.docker.com/get-started)
 
-## Installation
+## Instalação
 
-1. Clone the repository:
+1. Clone o repositório:
 
 ```bash
-git clone https://github.com/your-username/task-manager-api.git
+git clone https://github.com/seu-usuario/task-manager-api.git
 ```
 
-2. Navigate to the project directory:
+2. Acesse o diretório do projeto:
 
 ```bash
 cd task-manager-api
 ```
 
-3. Start MongoDB using Docker Compose:
+3. Inicie o MongoDB usando o Docker Compose:
 
 ```bash
 docker-compose up -d
 ```
 
-This will create a Docker container with MongoDB running.
+Isso criará um contêiner Docker com o MongoDB em execução.
 
-4. Install project dependencies:
+4. Instale as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-5. Create an `.env` file in the project root directory and define the following environment variables:
+5. Crie um arquivo `.env` no diretório raiz do projeto e defina as seguintes variáveis de ambiente:
 
 ```bash
 PORT=3000
 MONGODB_URI=mongodb://localhost:27017/task-manager
-JWT_SECRET=<your-jwt-secret-key>
+JWT_SECRET=<sua-chave-secreta-jwt>
 ```
 
-Make sure to replace `<your-jwt-secret-key>` with your desired secret key for JWT token generation.
+Certifique-se de substituir `<sua-chave-secreta-jwt>` pela sua chave secreta desejada para geração de tokens JWT.
 
-6. Start the server locally:
+6. Inicie o servidor localmente:
 
 ```bash
 npm start
 ```
 
-The application will be available at [http://localhost:3000](http://localhost:3000).
+A aplicação estará disponível em [http://localhost:3000](http://localhost:3000).
 
-## API Endpoints
+## Endpoints da API
 
-- `POST /api/register`: Register a new user.
-- `POST /api/login`: Perform user login and return a JWT token.
-- `GET /api/tasks`: Retrieve all tasks for the authenticated user.
-- `POST /api/tasks`: Create a new task.
-- `PUT /api/tasks/:taskId`: Update the status of a task.
-- `PUT /api/tasks/:taskId/assign/:userId`: Assign a task to a specific user.
-- `GET /api/tasks/search`: Search for tasks based on criteria.
+- `POST /api/register`: Registra um novo usuário.
+- `POST /api/login`: Realiza o login do usuário e retorna um token JWT.
+- `GET /api/tasks`: Recupera todas as tarefas do usuário autenticado.
+- `POST /api/tasks`: Cria uma nova tarefa.
+- `PUT /api/tasks/:taskId`: Atualiza o status de uma tarefa.
+- `PUT /api/tasks/:taskId/assign/:userId`: Atribui uma tarefa a um usuário específico.
+- `GET /api/tasks/search`: Pesquisa tarefas com base em critérios.
 
-Refer to the complete API documentation in the `API.md` file.
+Consulte a documentação completa da API no arquivo `API.md`.
 
-## Contribution
+## Contribuição
 
-Contributions are welcome! If you encounter any issues or have suggestions for improvements, please open an issue or submit a pull request.
+Contribuições são bem-vindas! Se você encontrar algum problema ou tiver sugestões de melhorias, abra uma issue ou envie um pull request.
 
-## License
+## Licença
 
-This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
-```
+Este projeto está licenciado sob a [Licença MIT](https://opensource.org/licenses/MIT).
