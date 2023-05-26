@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && ts-node-dev --respawn --transpile-only --igonre-watch node_modules --no-notify --inspect -- ./src/server.ts",
+    "start": "npm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --igonre-watch node_modules --no-notify --inspect -- ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -18,6 +18,7 @@
   "devDependencies": {
     "@types/node": "^20.2.5",
     "ts-node-dev": "^2.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
   }
 }
