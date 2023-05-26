@@ -1,5 +1,3 @@
-Certamente! Aqui está o markdown do README.md atualizado:
-
 ```markdown
 # TaskManagerAPI
 
