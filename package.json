@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && ts-node-dev --respawn --transpile-only --inspect -- ./src/server.ts",
+    "start": "npm install && ts-node-dev --respawn --transpile-only --igonre-watch node_modules --no-notify --inspect -- ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
