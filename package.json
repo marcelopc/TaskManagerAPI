@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias",
-    "start": "npm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --igonre-watch node_modules --no-notify --inspect -- ./src/server.ts",
+    "start": "pnpm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only  --no-notify --inspect -- ./src/index.ts",
     "test": "jest"
   },
   "keywords": [
@@ -36,6 +36,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.3",
     "express": "^4.18.2"
   }
 }
