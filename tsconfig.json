@@ -19,7 +19,7 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"],
+      "@src/*": ["./src/*"]
     },
     "rootDirs": [
       "./src",
@@ -31,7 +31,7 @@
   "include": [
     "./src/**/*.ts",
     "./test/**/*.ts"
-  ],
+, "src/server.js", "src/server.js"  ],
   "exclude": [
     "./node_modules/*",
     "dist"
