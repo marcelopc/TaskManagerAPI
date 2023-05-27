@@ -46,9 +46,13 @@ npm install
 5. Crie um arquivo `.env` no diretório raiz do projeto e defina as seguintes variáveis de ambiente:
 
 ```bash
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/task-manager
-JWT_SECRET=<sua-chave-secreta-jwt>
+DB_HOST="172.19.0.2"
+DB_PORT="27017"
+DB_NAME="taskmanager"
+DB_USER="root"
+DB_PASS="12345678"
+MONGO_URI=mongodb://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME?authSource=admin
+PORT="3000"
 ```
 
 Certifique-se de substituir `<sua-chave-secreta-jwt>` pela sua chave secreta desejada para geração de tokens JWT.
