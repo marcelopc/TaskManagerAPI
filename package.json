@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only --igonre-watch node_modules --no-notify --inspect -- ./src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "nodejs",
@@ -16,6 +16,7 @@
   "author": "Marcelo Peres",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^29.5.1",
     "@types/node": "^20.2.5",
     "@typescript-eslint/eslint-plugin": "^5.59.7",
     "@typescript-eslint/parser": "^5.59.7",
@@ -24,6 +25,9 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
+    "jest": "^29.5.0",
+    "ts-jest": "^29.1.0",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.0.4"
