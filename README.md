@@ -55,7 +55,7 @@ MONGO_URI=mongodb://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME?authSource=admi
 PORT="3000"
 ```
 
-Certifique-se de substituir `<sua-chave-secreta-jwt>` pela sua chave secreta desejada para geração de tokens JWT.
+Certifique-se de substituir as variaveis de acordo com seu ambiente
 
 6. Inicie o servidor localmente:
 
