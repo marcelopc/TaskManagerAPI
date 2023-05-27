@@ -19,7 +19,8 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["./src/*"]
+      "@src/*": ["./src/*"],
+      "@infrastructure/*": ["./src/infrastructure/*"]
     },
     "rootDirs": [
       "./src",
