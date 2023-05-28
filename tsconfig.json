@@ -21,7 +21,8 @@
     "paths": {
       "@src/*": ["./src/*"],
       "@infrastructure/*": ["./src/infrastructure/*"],
-      "@app/*": ["./src/app/*"]
+      "@app/*": ["./src/app/*"],
+      "@core/*": ["./src/core/*"],
     },
     "rootDirs": [
       "./src",
