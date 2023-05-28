@@ -1,6 +1,9 @@
-import { type payloadCreateUserType, type createUserType } from '@core/types/userTypes'
+import { type PayloadCreateUserType, type CreateUserType } from '@core/types/user/userTypes'
+import { type UserRepository } from '@core/types/user/userRepository'
 
-const createUser = async (payload: payloadCreateUserType, userModel: any, crypter: any): Promise<createUserType> => {
+import { type cryptoType } from '@infrastructure/utils/cryptoType'
+
+const createUser = async (payload: PayloadCreateUserType, userModel: UserRepository, crypter: cryptoType): Promise<CreateUserType> => {
   if (payload.nome === '' || payload.email === '' || payload.password === '') {
     throw new Error('nome, email e senha são obrigatários')
   }
@@ -15,7 +18,7 @@ const createUser = async (payload: payloadCreateUserType, userModel: any, crypte
   //   throw new Error('Email já cadastrado')
   // }
 
-  const senha = await crypter.hash(payload.password)
+  const senha = crypter.hash(payload.password)
   const databasePayload = {
     nome: payload.nome,
     email: payload.email,

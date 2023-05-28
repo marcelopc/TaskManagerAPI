@@ -1,5 +1,6 @@
 import userServices from './userServices'
-import { type payloadCreateUserType, type createUserType } from '@core/types/userTypes'
+import { type PayloadCreateUserType, type CreateUserType } from '@core/types/user/userTypes'
+import { type UserModel } from '@core/types/user/userModel'
 import crypto from '@infrastructure/utils/crypt'
 
 import dotenv from 'dotenv'
@@ -7,15 +8,8 @@ import dotenvExpand from 'dotenv-expand'
 dotenvExpand.expand(dotenv.config())
 
 const date = new Date()
-interface createUserDataBase {
-  id: string
-  nome: string
-  email: string
-  password: string
-  createdAt: Date
-  updatedAt: Date
-}
-const userDatabase: createUserType = {
+
+const userDatabase: CreateUserType = {
   id: 'anyid',
   nome: 'anyname',
   email: 'anyemail',
@@ -24,8 +18,8 @@ const userDatabase: createUserType = {
 }
 
 const userModel = {
-  register: async (payload: payloadCreateUserType): Promise<createUserDataBase> => {
-    const user: createUserDataBase = {
+  register: async (payload: PayloadCreateUserType): Promise<UserModel> => {
+    const user: UserModel = {
       id: 'anyid',
       nome: payload.nome,
       email: payload.email,
@@ -109,7 +103,7 @@ it('Retornando erro se informar password maior que 20 caracteres', async () => {
 })
 
 it('Criando usuario com sucesso', async () => {
-  const payload: payloadCreateUserType = {
+  const payload: PayloadCreateUserType = {
     nome: 'anyname',
     email: 'anyemail',
     password: 'anypassword'

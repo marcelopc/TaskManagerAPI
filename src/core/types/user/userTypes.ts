@@ -1,10 +1,10 @@
-interface payloadCreateUserType {
+interface PayloadCreateUserType {
   nome: string
   email: string
   password: string
 }
 
-interface createUserType {
+interface CreateUserType {
   id: string
   nome: string
   email: string
@@ -13,6 +13,6 @@ interface createUserType {
 }
 
 export type {
-  payloadCreateUserType,
-  createUserType
+  PayloadCreateUserType,
+  CreateUserType
 }
