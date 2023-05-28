@@ -9,4 +9,4 @@ dotenvExpand.expand(dotenv.config())
 const PORT = parseInt(process.env.PORT as string)
 const URIDATABASE = process.env.MONGO_URI as string
 
-Server.start(PORT, URIDATABASE, mongoDB)
+Server.start(PORT, URIDATABASE, mongoDB).finally(() => {})
