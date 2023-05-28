@@ -20,7 +20,8 @@
     "baseUrl": ".",
     "paths": {
       "@src/*": ["./src/*"],
-      "@infrastructure/*": ["./src/infrastructure/*"]
+      "@infrastructure/*": ["./src/infrastructure/*"],
+      "@app/*": ["./src/app/*"]
     },
     "rootDirs": [
       "./src",

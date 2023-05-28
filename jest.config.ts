@@ -91,6 +91,7 @@ export default {
   moduleNameMapper: {
     '^@src/(.*)$': '<rootDir>/src/$1',
     '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
   },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
