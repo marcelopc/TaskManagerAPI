@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json && tsc-alias",
     "start": "pnpm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only  --no-notify --inspect -- ./src/index.ts",
-    "test": "jest"
+    "test": "jest --passWithNoTests --noStackTrace --runInBand",
+    "test:unit": "npm test -- --watch"
   },
   "keywords": [
     "nodejs",
