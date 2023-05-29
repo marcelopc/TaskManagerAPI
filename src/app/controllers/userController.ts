@@ -1,14 +1,22 @@
-import { type Request, type Response } from 'express'
+import { type NextFunction, type Request, type Response } from 'express'
 import { type CreateUserDto } from '../dtos/user'
-import userService from '@core/services/userServices'
+import userService from '@core/services/user/userServices'
+import crypto from '@infrastructure/utils/crypt'
+import { userRepository } from '@infrastructure/database/repository/userRepository'
 
-const createUser = async (req: Request, res: Response): Promise<Response<any, Record<string, any>>> => {
+const createUser = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
-    const { email, password, name }: CreateUserDto = req.body
-    const user = await userService.createUser(email, password, name)
+    const { email, password, nome }: CreateUserDto = req.body
+    const payload = {
+      email,
+      password,
+      nome
+    }
+
+    const user = await userService.createUser(payload, userRepository, crypto)
     return res.status(201).json({ user })
   } catch (error) {
-    return res.status(500).json({ error })
+    next(error)
   }
 }
 

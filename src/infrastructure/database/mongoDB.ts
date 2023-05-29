@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { type IDatabase } from './modelTypes/databaseType'
+import { type IDatabase } from './types/databaseType'
 
 const connect = async (MONGO_URI: string): Promise<void> => {
   try {

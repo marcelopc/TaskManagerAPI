@@ -1,5 +1,5 @@
 interface CreateUserDto {
-  name: string
+  nome: string
   email: string
   password: string
 }

@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { type IDatabase } from '@infrastructure/database/databaseType'
+import { type IDatabase } from '@infrastructure/database/types/databaseType'
 import routes from '@app/routes'
 const app = express()
 

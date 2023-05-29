@@ -29,6 +29,17 @@ const userModel = {
     }
 
     return user
+  },
+  findOne: async (field: keyof UserModel, value: string | Date): Promise<UserModel | null> => {
+    const user: UserModel = {
+      id: 'anyemail',
+      nome: 'anyemail',
+      email: 'anyemail',
+      password: 'anyemail',
+      createdAt: date,
+      updatedAt: date
+    }
+    return user
   }
 }
 
@@ -108,6 +119,7 @@ it('Criando usuario com sucesso', async () => {
     email: 'anyemail',
     password: 'anypassword'
   }
+  userModel.findOne = async (field: keyof UserModel, value: string | Date): Promise<UserModel | null> => null
   const user = await userServices.createUser(payload, userModel, crypto)
   expect(user).toEqual(userDatabase)
 })

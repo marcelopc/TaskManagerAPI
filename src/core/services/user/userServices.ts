@@ -1,22 +1,25 @@
 import { type PayloadCreateUserType, type CreateUserType } from '@core/types/user/userTypes'
 import { type UserRepository } from '@core/types/user/userRepository'
 
-import { type cryptoType } from '@infrastructure/utils/cryptoType'
+import { type Crypto } from '@core/types/crypto'
+import { newError } from '@core/util/error'
 
-const createUser = async (payload: PayloadCreateUserType, userModel: UserRepository, crypter: cryptoType): Promise<CreateUserType> => {
+const createUser = async (payload: PayloadCreateUserType, userModel: UserRepository, crypter: Crypto): Promise<CreateUserType> => {
   if (payload.nome === '' || payload.email === '' || payload.password === '') {
-    throw new Error('nome, email e senha são obrigatários')
+    throw newError(400, 'nome, email e senha são obrigatários')
   }
   if (payload.password.length < 8) {
-    throw new Error('Senha deve ter pelo menos 8 caracteres')
+    throw newError(400, 'Senha deve ter pelo menos 8 caracteres')
   }
   if (payload.password.length > 20) {
-    throw new Error('Senha deve ter no máximo 20 caracteres')
+    throw newError(400, 'Senha deve ter no máximo 20 caracteres')
   }
 
-  // if (await outsideRegister.findOne({ where: { email: payload.email } })) {
-  //   throw new Error('Email já cadastrado')
-  // }
+  const user = await userModel.findOne('email', payload.email)
+
+  if (user !== null) {
+    throw newError(400, 'Email já cadastrado')
+  }
 
   const senha = crypter.hash(payload.password)
   const databasePayload = {
@@ -24,14 +27,14 @@ const createUser = async (payload: PayloadCreateUserType, userModel: UserReposit
     email: payload.email,
     password: senha
   }
-  const user = await userModel.register(databasePayload)
+  const userCreated = await userModel.register(databasePayload)
 
   return {
-    id: user.id,
-    nome: user.nome,
-    email: user.email,
-    createdAt: user.createdAt,
-    updatedAt: user.updatedAt
+    id: userCreated.id,
+    nome: userCreated.nome,
+    email: userCreated.email,
+    createdAt: userCreated.createdAt,
+    updatedAt: userCreated.updatedAt
   }
 }
 

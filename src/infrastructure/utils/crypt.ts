@@ -1,10 +1,12 @@
 import crypto from 'crypto'
-import { type cryptoType } from './cryptoType'
+import { type Crypto } from '@core/types/crypto'
 
 const hash = (text: string): string => crypto.createHmac('sha256', process.env.SECRET as string).update(text).digest('base64')
+const uuid = (): string => crypto.randomUUID()
 
-const crypt: cryptoType = {
-  hash
+const crypt: Crypto = {
+  hash,
+  uuid
 }
 
 export default crypt
