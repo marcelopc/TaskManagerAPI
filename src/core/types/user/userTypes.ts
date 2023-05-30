@@ -12,7 +12,13 @@ interface CreateUserType {
   updatedAt: Date
 }
 
+interface PayloadLogin {
+  email: string
+  password: string
+}
+
 export type {
   PayloadCreateUserType,
-  CreateUserType
+  CreateUserType,
+  PayloadLogin
 }
