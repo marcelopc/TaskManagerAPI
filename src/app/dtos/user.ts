@@ -4,4 +4,9 @@ interface CreateUserDto {
   password: string
 }
 
-export type { CreateUserDto }
+interface LoginUserDto {
+  email: string
+  password: string
+}
+
+export type { CreateUserDto, LoginUserDto }
