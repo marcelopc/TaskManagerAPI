@@ -1,4 +1,5 @@
 import { type PayloadCreateUserType, type CreateUserType, type PayloadLogin } from '@core/types/user/userTypes'
+import { type JwtGenerator } from '@core/types/jwtGenerator'
 import { type UserRepository } from '@core/types/user/userRepository'
 
 import { type Crypto } from '@core/types/crypto'
@@ -38,7 +39,7 @@ const createUser = async (payload: PayloadCreateUserType, userModel: UserReposit
   }
 }
 
-const login = async (payload: PayloadLogin, userModel: UserRepository, crypter: Crypto): Promise<string> => {
+const login = async (payload: PayloadLogin, userModel: UserRepository, crypter: Crypto, jwtGenerator: JwtGenerator): Promise<string> => {
   if (payload.email === '' || payload.password === '') {
     throw newError(400, 'email e senha são obrigatários')
   }
@@ -54,7 +55,12 @@ const login = async (payload: PayloadLogin, userModel: UserRepository, crypter: 
   if (passwordhashed !== usuario.password) {
     throw newError(400, 'email ou senha incorretos')
   }
-  return 'anytoken'
+
+  const payloadToken = {
+    id: usuario.id
+  }
+  const token = jwtGenerator.create(payloadToken)
+  return token
 }
 
 export default {
