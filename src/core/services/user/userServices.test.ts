@@ -2,7 +2,6 @@ import userServices from './userServices'
 import { type PayloadCreateUserType, type CreateUserType } from '@core/types/user/userTypes'
 import { type UserModel } from '@core/types/user/userModel'
 import crypto from '@infrastructure/utils/crypt'
-import { newError } from '@core/util/error'
 import dotenv from 'dotenv'
 import dotenvExpand from 'dotenv-expand'
 dotenvExpand.expand(dotenv.config())
@@ -23,7 +22,7 @@ const userModel = {
       id: 'anyid',
       nome: payload.nome,
       email: payload.email,
-      password: payload.password,
+      password: 'payload.password',
       createdAt: date,
       updatedAt: date
     }
@@ -35,7 +34,7 @@ const userModel = {
       id: 'anyid',
       nome: 'anynome',
       email: 'anyemail',
-      password: 'anypassword',
+      password: 'ui2peJzOrq73BJr7uzNt2TTggrMDOBmmNa3Vbah7kKk=',
       createdAt: date,
       updatedAt: date
     }
@@ -67,12 +66,7 @@ describe('createUser', () => {
       email: 'anyemail',
       password: 'anypassword'
     }
-
-    try {
-      await userServices.createUser(payload, userModel, crypto)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'nome, email e senha são obrigatários'))
-    }
+    await expect(userServices.createUser(payload, userModel, crypto)).rejects.toThrow('nome, email e senha são obrigatários')
   })
 
   it('Retornando erro se não informar email', async () => {
@@ -81,12 +75,7 @@ describe('createUser', () => {
       email: '',
       password: 'anypassword'
     }
-
-    try {
-      await userServices.createUser(payload, userModel, crypto)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'nome, email e senha são obrigatários'))
-    }
+    await expect(userServices.createUser(payload, userModel, crypto)).rejects.toThrow('nome, email e senha são obrigatários')
   })
 
   it('Retornando erro se não informar password', async () => {
@@ -95,12 +84,7 @@ describe('createUser', () => {
       email: 'anyemail',
       password: ''
     }
-
-    try {
-      await userServices.createUser(payload, userModel, crypto)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'nome, email e senha são obrigatários'))
-    }
+    await expect(userServices.createUser(payload, userModel, crypto)).rejects.toThrow('nome, email e senha são obrigatários')
   })
 
   it('Retornando erro se informar password menor que 8 caracteres', async () => {
@@ -109,12 +93,7 @@ describe('createUser', () => {
       email: 'anyemail',
       password: 'any'
     }
-
-    try {
-      await userServices.createUser(payload, userModel, crypto)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'Senha deve ter pelo menos 8 caracteres'))
-    }
+    await expect(userServices.createUser(payload, userModel, crypto)).rejects.toThrow('Senha deve ter pelo menos 8 caracteres')
   })
 
   it('Retornando erro se informar password maior que 20 caracteres', async () => {
@@ -123,12 +102,7 @@ describe('createUser', () => {
       email: 'anyemail',
       password: 'anypasswordanypasswordanypasswordanypassword'
     }
-
-    try {
-      await userServices.createUser(payload, userModel, crypto)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'Senha deve ter no máximo 20 caracteres'))
-    }
+    await expect(userServices.createUser(payload, userModel, crypto)).rejects.toThrow('Senha deve ter no máximo 20 caracteres')
   })
 
   it('Criando usuario com sucesso', async () => {
@@ -148,7 +122,7 @@ describe('loginUser', () => {
       email: 'anyemail',
       password: 'anypassword'
     }
-    const token = await userServices.login(payload, userModel)
+    const token = await userServices.login(payload, userModel, crypto)
     expect(token).toEqual('anytoken')
   })
   it('Retornando erro se não informar email', async () => {
@@ -156,22 +130,14 @@ describe('loginUser', () => {
       email: '',
       password: 'anypassword'
     }
-    try {
-      await userServices.login(payload, userModel)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'email e senha são obrigatários'))
-    }
+    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email e senha são obrigatários')
   })
   it('Retornando erro se não informar senha', async () => {
     const payload = {
       email: 'anyemail',
       password: ''
     }
-    try {
-      await userServices.login(payload, userModel)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'email e senha são obrigatários'))
-    }
+    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email e senha são obrigatários')
   })
 
   it('Retornando erro se não encontrar usuario', async () => {
@@ -179,10 +145,14 @@ describe('loginUser', () => {
       email: 'anyemail',
       password: 'anypassword'
     }
-    try {
-      await userServices.login(payload, userModel)
-    } catch (error) {
-      expect(error).toEqual(newError(400, 'email e senha são obrigatários'))
+    await expect(userServices.login(payload, fakeUserModel, crypto)).rejects.toThrow('email ou senha incorretos')
+  })
+
+  it('Retornando erro se password for incorreto', async () => {
+    const payload = {
+      email: 'anyemail',
+      password: 'wrongpassword'
     }
+    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email ou senha incorretos')
   })
 })
