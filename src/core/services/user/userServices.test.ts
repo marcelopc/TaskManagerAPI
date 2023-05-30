@@ -1,5 +1,6 @@
 import userServices from './userServices'
 import { type PayloadCreateUserType, type CreateUserType } from '@core/types/user/userTypes'
+import { type PayloadJwt } from '@core/types/jwtGenerator'
 import { type UserModel } from '@core/types/user/userModel'
 import crypto from '@infrastructure/utils/crypt'
 import dotenv from 'dotenv'
@@ -59,6 +60,11 @@ const fakeUserModel = {
   findOne: async (field: keyof UserModel, value: string | Date): Promise<UserModel | null> => null
 }
 
+const jwtGenerator = {
+  create: (payload: PayloadJwt): string => {
+    return 'anytoken'
+  }
+}
 describe('createUser', () => {
   it('Retornando erro se não informar nome', async () => {
     const payload = {
@@ -122,7 +128,7 @@ describe('loginUser', () => {
       email: 'anyemail',
       password: 'anypassword'
     }
-    const token = await userServices.login(payload, userModel, crypto)
+    const token = await userServices.login(payload, userModel, crypto, jwtGenerator)
     expect(token).toEqual('anytoken')
   })
   it('Retornando erro se não informar email', async () => {
@@ -130,14 +136,14 @@ describe('loginUser', () => {
       email: '',
       password: 'anypassword'
     }
-    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email e senha são obrigatários')
+    await expect(userServices.login(payload, userModel, crypto, jwtGenerator)).rejects.toThrow('email e senha são obrigatários')
   })
   it('Retornando erro se não informar senha', async () => {
     const payload = {
       email: 'anyemail',
       password: ''
     }
-    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email e senha são obrigatários')
+    await expect(userServices.login(payload, userModel, crypto, jwtGenerator)).rejects.toThrow('email e senha são obrigatários')
   })
 
   it('Retornando erro se não encontrar usuario', async () => {
@@ -145,7 +151,7 @@ describe('loginUser', () => {
       email: 'anyemail',
       password: 'anypassword'
     }
-    await expect(userServices.login(payload, fakeUserModel, crypto)).rejects.toThrow('email ou senha incorretos')
+    await expect(userServices.login(payload, fakeUserModel, crypto, jwtGenerator)).rejects.toThrow('email ou senha incorretos')
   })
 
   it('Retornando erro se password for incorreto', async () => {
@@ -153,6 +159,6 @@ describe('loginUser', () => {
       email: 'anyemail',
       password: 'wrongpassword'
     }
-    await expect(userServices.login(payload, userModel, crypto)).rejects.toThrow('email ou senha incorretos')
+    await expect(userServices.login(payload, userModel, crypto, jwtGenerator)).rejects.toThrow('email ou senha incorretos')
   })
 })
