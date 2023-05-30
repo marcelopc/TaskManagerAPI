@@ -38,7 +38,7 @@ const createUser = async (payload: PayloadCreateUserType, userModel: UserReposit
   }
 }
 
-const login = async (payload: PayloadLogin, userModel: UserRepository): Promise<string> => {
+const login = async (payload: PayloadLogin, userModel: UserRepository, crypter: Crypto): Promise<string> => {
   if (payload.email === '' || payload.password === '') {
     throw newError(400, 'email e senha são obrigatários')
   }
@@ -46,7 +46,13 @@ const login = async (payload: PayloadLogin, userModel: UserRepository): Promise<
   const usuario = await userModel.findOne('email', payload.email)
 
   if (usuario === null) {
-    throw newError(400, 'email e senha são obrigatários')
+    throw newError(400, 'email ou senha incorretos')
+  }
+
+  const passwordhashed = crypter.hash(payload.password)
+
+  if (passwordhashed !== usuario.password) {
+    throw newError(400, 'email ou senha incorretos')
   }
   return 'anytoken'
 }
