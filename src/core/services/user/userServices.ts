@@ -42,7 +42,7 @@ const login = async (payload: PayloadLogin, userModel: UserRepository): Promise<
   if (payload.email === '' || payload.password === '') {
     throw newError(400, 'email e senha são obrigatários')
   }
-  console.log(await userModel.findOne('email', payload.email))
+
   const usuario = await userModel.findOne('email', payload.email)
 
   if (usuario === null) {
