@@ -31,7 +31,15 @@ export const createTask = async (payload: PayloadCreateTask, userRepository: Use
 
   const task = await taskRepository.register(payloadTask)
 
-  return task
+  return {
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    completed: task.completed,
+    createdAt: task.createdAt,
+    updatedAt: task.updatedAt,
+    userId: task.userId
+  }
 }
 
 export default {
