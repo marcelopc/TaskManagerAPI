@@ -1,5 +1,4 @@
 import { type PayloadCreateUserType, type CreateUserType, type PayloadLogin } from '@core/types/user/userTypes'
-import { type UserModel } from '@core/types/user/userModel'
 import { type JwtGenerator } from '@core/types/jwtGenerator'
 import { type UserRepository } from '@core/types/user/userRepository'
 
