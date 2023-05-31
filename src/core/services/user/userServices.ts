@@ -1,4 +1,5 @@
 import { type PayloadCreateUserType, type CreateUserType, type PayloadLogin } from '@core/types/user/userTypes'
+import { type UserModel } from '@core/types/user/userModel'
 import { type JwtGenerator } from '@core/types/jwtGenerator'
 import { type UserRepository } from '@core/types/user/userRepository'
 
@@ -63,7 +64,29 @@ const login = async (payload: PayloadLogin, userModel: UserRepository, crypter: 
   return token
 }
 
+const getUser = async (id: string, userModel: UserRepository): Promise<CreateUserType | null> => {
+  if (id === '') {
+    throw newError(500, 'id é obrigatários')
+  }
+
+  const usuario = await userModel.findOne('id', id.toString())
+  let response = null
+
+  if (usuario !== null) {
+    response = {
+      id: usuario.id,
+      nome: usuario.nome,
+      email: usuario.email,
+      createdAt: usuario.createdAt,
+      updatedAt: usuario.updatedAt
+    }
+  }
+
+  return response
+}
+
 export default {
   createUser,
-  login
+  login,
+  getUser
 }
