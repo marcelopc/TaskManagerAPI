@@ -11,7 +11,7 @@ const date = new Date()
 
 const userDatabase: CreateUserType = {
   id: 'anyid',
-  nome: 'anyname',
+  nome: 'anynome',
   email: 'anyemail',
   createdAt: date,
   updatedAt: date
@@ -113,7 +113,7 @@ describe('createUser', () => {
 
   it('Criando usuario com sucesso', async () => {
     const payload: PayloadCreateUserType = {
-      nome: 'anyname',
+      nome: 'anynome',
       email: 'anyemail',
       password: 'anypassword'
     }
@@ -160,5 +160,19 @@ describe('loginUser', () => {
       password: 'wrongpassword'
     }
     await expect(userServices.login(payload, userModel, crypto, jwtGenerator)).rejects.toThrow('email ou senha incorretos')
+  })
+})
+
+describe('getUser', () => {
+  it('Deve retornar o usuário se informar o id corretamente', async () => {
+    await expect(userServices.getUser('anyid', userModel)).resolves.toEqual(userDatabase)
+  })
+
+  it('Deve retornar null se informar o id incorretamente', async () => {
+    await expect(userServices.getUser('anyid', fakeUserModel)).resolves.toEqual(null)
+  })
+
+  it('Deve retornar uma exceção caso não seja passado id', async () => {
+    await expect(userServices.getUser('', userModel)).rejects.toThrow('id é obrigatários')
   })
 })
