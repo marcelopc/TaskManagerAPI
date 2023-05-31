@@ -1,7 +1,7 @@
 interface PayloadCreateTask {
   title: string
   description: string
-  email?: string
+  userId: string
 }
 
 interface CreatedTask {
@@ -13,15 +13,12 @@ interface CreatedTask {
   updatedAt: Date
   userId: string | null
 }
-
-interface PayloadTaskRepository {
-  title: string
-  description: string
-  idUser?: string
+interface PayloadGetAllTasks {
+  userId: string
 }
 
 export type {
   PayloadCreateTask,
   CreatedTask,
-  PayloadTaskRepository
+  PayloadGetAllTasks
 }
