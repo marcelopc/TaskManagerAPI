@@ -2,7 +2,6 @@ import { type NextFunction, type Request, type Response } from 'express'
 import { type CreateTaskDto } from '@app/dtos/task'
 import { type MiddlewareResponse } from '@app/dtos/middleware'
 import taskServices from '@core/services/task/taskServices'
-import { userRepository } from '@infrastructure/database/repository/userRepository'
 import { taskRepository } from '@infrastructure/database/repository/taskRepository'
 
 const get = async (middlewareResponse: MiddlewareResponse, req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
@@ -34,25 +33,28 @@ const create = async (middlewareResponse: MiddlewareResponse, req: Request, res:
   }
 }
 
-const update = async (req: Request, res: Response, next: NextFunction) => {
+const update = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
-
+    return res.status(201).json({ task: 'task atualizada' })
   } catch (error) {
-
+    next(error)
   }
 }
-const updateStatus = async (req: Request, res: Response, next: NextFunction) => {
+const updateStatus = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
+    const taskId = req.params.taskId
 
+    const task = await taskServices.updateTaskStatus({ taskId }, taskRepository)
+    return res.status(201).json({ task })
   } catch (error) {
-
+    next(error)
   }
 }
-const search = async (req: Request, res: Response, next: NextFunction) => {
+const search = async (middlewareResponse: MiddlewareResponse, req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
-
+    return res.status(201).json({ task: '' })
   } catch (error) {
-
+    next(error)
   }
 }
 

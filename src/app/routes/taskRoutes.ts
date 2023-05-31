@@ -8,8 +8,8 @@ const router = Router()
 
 router.get('/tasks', userMiddleware.get, taskController.get)
 router.post('/tasks', (req: Request, res: Response, next: NextFunction) => { bodyValidation(req, res, next, userTaskCreateSchema) }, userMiddleware.get, taskController.create)
-router.put('/tasks/:taskId', userMiddleware.get, taskController.update)
-router.put('/tasks/:taskId/assign/:userId', userMiddleware.get, taskController.updateStatus)
+router.put('/tasks/:taskId', taskController.updateStatus)
+router.put('/tasks/:taskId/assign/:userId', userMiddleware.get, taskController.update)
 router.get('/tasks/search', userMiddleware.get, taskController.search)
 
 export default router

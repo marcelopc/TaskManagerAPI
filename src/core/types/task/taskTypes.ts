@@ -4,7 +4,7 @@ interface PayloadCreateTask {
   userId: string
 }
 
-interface CreatedTask {
+interface TaskReturn {
   id: string
   title: string
   description: string
@@ -16,9 +16,13 @@ interface CreatedTask {
 interface PayloadGetAllTasks {
   userId: string
 }
+interface PayloadUpdateStatusTask {
+  taskId: string
+}
 
 export type {
   PayloadCreateTask,
-  CreatedTask,
-  PayloadGetAllTasks
+  TaskReturn,
+  PayloadGetAllTasks,
+  PayloadUpdateStatusTask
 }

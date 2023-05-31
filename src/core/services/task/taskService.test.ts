@@ -1,11 +1,11 @@
 import taskServices from './taskServices'
-import { type CreatedTask } from '@core/types/task/taskTypes'
+import { type TaskReturn } from '@core/types/task/taskTypes'
 import { type TaskRepository } from '@core/types/task/taskRepository'
 import { type TaskModel } from '@core/types/task/taskModels'
 
 describe('Criar task', () => {
   const date = new Date()
-  const task: CreatedTask = {
+  const task: TaskReturn = {
     id: 'anyid',
     title: 'anyTitle',
     description: 'anyDescription',
@@ -33,7 +33,8 @@ describe('Criar task', () => {
     },
     findAll: async () => {
       return [taskModel]
-    }
+    },
+    updateStatus: async () => taskModel
   }
 
   it('Deve retornar uma exceção caso não seja passado titulo', async () => {
@@ -95,7 +96,9 @@ describe('Buscando todas as tasks de um usuário', () => {
     },
     findAll: async () => {
       return [taskModel]
-    }
+    },
+    updateStatus: async () => taskModel
+
   }
 
   it('Deve retornar uma exceção caso não seja passado userId', async () => {
@@ -110,5 +113,69 @@ describe('Buscando todas as tasks de um usuário', () => {
       userId: 'anyUserId'
     }
     await expect(taskServices.getAllTasks(payload, taskRepository)).resolves.toEqual([taskModel])
+  })
+})
+
+describe('Atualizando status da task', () => {
+  const date = new Date()
+
+  const taskModel: TaskModel = {
+    id: 'anyid',
+    title: 'anyTitle',
+    description: 'anyDescription',
+    completed: false,
+    createdAt: date,
+    updatedAt: date,
+    userId: 'anyUserId'
+  }
+
+  const taskRepository: TaskRepository = {
+    register: async () => {
+      return taskModel
+    },
+    findOne: async () => {
+      return taskModel
+    },
+    findAll: async () => {
+      return [taskModel]
+    },
+    updateStatus: async () => taskModel
+
+  }
+
+  it('Deve retornar uma exceção caso não seja passado userId', async () => {
+    const payload = {
+      taskId: ''
+    }
+    await expect(taskServices.updateTaskStatus(payload, taskRepository)).rejects.toThrow('taskId é obrigatário')
+  })
+
+  it('Deve retornar uma exceção caso não encontre a task', async () => {
+    const payload = {
+      taskId: 'anyTaskId'
+    }
+    const fakeTaskRepository = {
+      ...taskRepository,
+      findOne: async () => null
+    }
+    await expect(taskServices.updateTaskStatus(payload, fakeTaskRepository)).rejects.toThrow('Task não encontrada')
+  })
+
+  it('Deve retornar uma exceção caso não encontre a task no update', async () => {
+    const payload = {
+      taskId: 'anyTaskId'
+    }
+    const fakeTaskRepository = {
+      ...taskRepository,
+      updateStatus: async () => null
+    }
+    await expect(taskServices.updateTaskStatus(payload, fakeTaskRepository)).rejects.toThrow('Task não encontrada')
+  })
+
+  it('Deve retornar todas as tasks de um usuário', async () => {
+    const payload = {
+      taskId: 'anyTaskId'
+    }
+    await expect(taskServices.updateTaskStatus(payload, taskRepository)).resolves.toEqual(taskModel)
   })
 })
