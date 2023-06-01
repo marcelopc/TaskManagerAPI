@@ -20,39 +20,41 @@ Certifique-se de ter o Docker instalado em sua máquina. Você pode baixar o Doc
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/task-manager-api.git
+git clone https://github.com/seu-usuario/TaskManagerApi.git
 ```
 
 2. Acesse o diretório do projeto:
 
 ```bash
-cd task-manager-api
+cd TaskManagerApi
 ```
 
-3. Inicie o MongoDB usando o Docker Compose:
+3. Inicie o MongoDB usando o Make:
 
 ```bash
-docker-compose up -d
+make up
 ```
 
-Isso criará um contêiner Docker com o MongoDB em execução.
+Isso irá executar o Docker-compose configurando as variavéis de ambiente e criará um contêiner Docker com o MongoDB em execução.
 
 4. Instale as dependências do projeto:
 
 ```bash
-npm install
+pnpm install
 ```
 
 5. Crie um arquivo `.env` no diretório raiz do projeto e defina as seguintes variáveis de ambiente:
 
 ```bash
-DB_HOST="172.19.0.2"
-DB_PORT="27017"
-DB_NAME="taskmanager"
-DB_USER="root"
-DB_PASS="12345678"
+DB_HOST=""
+DB_PORT=""
+DB_NAME=""
+DB_USER=""
+DB_PASS=""
 MONGO_URI=mongodb://$DB_USER:$DB_PASS@$DB_HOST:$DB_PORT/$DB_NAME?authSource=admin
-PORT="3000"
+PORT=""
+ENCRYPT_SECRET=""
+JWT_SECRET=""
 ```
 
 Certifique-se de substituir as variaveis de acordo com seu ambiente
@@ -75,7 +77,6 @@ A aplicação estará disponível em [http://localhost:3000](http://localhost:30
 - `PUT /api/tasks/:taskId/assign/:userId`: Atribui uma tarefa a um usuário específico.
 - `GET /api/tasks/search`: Pesquisa tarefas com base em critérios.
 
-Consulte a documentação completa da API no arquivo `API.md`.
 
 ## Contribuição
 
