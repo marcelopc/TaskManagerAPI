@@ -14,12 +14,13 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
         req.user = user
       }
       next()
-      return
+      return undefined
     }
 
     return res.status(404).json({ message: 'Usuário não encontrado' })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 

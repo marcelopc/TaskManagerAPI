@@ -63,7 +63,9 @@ const fakeUserModel = {
 const jwtGenerator = {
   create: (payload: PayloadJwt): string => {
     return 'anytoken'
-  }
+  },
+  decode: (token: string) => null,
+  verify: (token: string) => null
 }
 describe('createUser', () => {
   it('Retornando erro se não informar nome', async () => {

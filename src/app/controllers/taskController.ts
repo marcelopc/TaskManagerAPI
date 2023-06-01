@@ -14,6 +14,7 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
     return res.status(200).json({ tasks })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 
@@ -32,6 +33,7 @@ const create = async (req: Request, res: Response, next: NextFunction): Promise<
     return res.status(201).json({ task })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 
@@ -50,6 +52,7 @@ const update = async (req: Request, res: Response, next: NextFunction): Promise<
     return res.status(201).json({ task })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 const updateStatus = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
@@ -60,6 +63,7 @@ const updateStatus = async (req: Request, res: Response, next: NextFunction): Pr
     return res.status(201).json({ task })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 const search = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
@@ -78,6 +82,7 @@ const search = async (req: Request, res: Response, next: NextFunction): Promise<
     return res.status(201).json({ task })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 

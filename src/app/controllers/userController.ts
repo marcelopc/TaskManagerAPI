@@ -18,6 +18,7 @@ const createUser = async (req: Request, res: Response, next: NextFunction): Prom
     return res.status(201).json({ user })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 
@@ -33,6 +34,7 @@ const login = async (req: Request, res: Response, next: NextFunction): Promise<R
     return res.status(201).json({ token })
   } catch (error) {
     next(error)
+    return undefined
   }
 }
 

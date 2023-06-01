@@ -8,7 +8,8 @@
     "start": "pnpm install && ts-node-dev -r tsconfig-paths/register --respawn --transpile-only  --no-notify --inspect -- ./src/index.ts",
     "test": "jest --passWithNoTests --noStackTrace --runInBand",
     "test:unit": "npm test -- --watch",
-    "docker:ip": "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db"
+    "docker:ip": "docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' db",
+    "prod": "node ./dist/index.js"
   },
   "keywords": [
     "nodejs",
