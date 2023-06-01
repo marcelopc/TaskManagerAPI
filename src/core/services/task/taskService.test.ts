@@ -34,7 +34,7 @@ describe('Criar task', () => {
     findAll: async () => {
       return [taskModel]
     },
-    updateStatus: async () => taskModel
+    update: async () => taskModel
   }
 
   it('Deve retornar uma exceção caso não seja passado titulo', async () => {
@@ -97,8 +97,7 @@ describe('Buscando todas as tasks de um usuário', () => {
     findAll: async () => {
       return [taskModel]
     },
-    updateStatus: async () => taskModel
-
+    update: async () => taskModel
   }
 
   it('Deve retornar uma exceção caso não seja passado userId', async () => {
@@ -139,7 +138,7 @@ describe('Atualizando status da task', () => {
     findAll: async () => {
       return [taskModel]
     },
-    updateStatus: async () => taskModel
+    update: async () => taskModel
 
   }
 
@@ -167,15 +166,126 @@ describe('Atualizando status da task', () => {
     }
     const fakeTaskRepository = {
       ...taskRepository,
-      updateStatus: async () => null
+      update: async () => null
     }
     await expect(taskServices.updateTaskStatus(payload, fakeTaskRepository)).rejects.toThrow('Task não encontrada')
   })
 
-  it('Deve retornar todas as tasks de um usuário', async () => {
+  it('Deve retornar task atualizada', async () => {
     const payload = {
       taskId: 'anyTaskId'
     }
     await expect(taskServices.updateTaskStatus(payload, taskRepository)).resolves.toEqual(taskModel)
+  })
+})
+
+describe('Atualizando usuario da task', () => {
+  const date = new Date()
+
+  const taskModel: TaskModel = {
+    id: 'anyid',
+    title: 'anyTitle',
+    description: 'anyDescription',
+    completed: false,
+    createdAt: date,
+    updatedAt: date,
+    userId: 'anyUserId'
+  }
+
+  const taskRepository: TaskRepository = {
+    register: async () => {
+      return taskModel
+    },
+    findOne: async () => {
+      return taskModel
+    },
+    findAll: async () => {
+      return [taskModel]
+    },
+    update: async () => taskModel
+
+  }
+
+  it('Deve retornar uma exceção caso não seja passado userId', async () => {
+    const payload = {
+      taskId: '',
+      userId: 'anyUserId'
+    }
+    await expect(taskServices.updateUserTask(payload, taskRepository)).rejects.toThrow('taskId é obrigatário')
+  })
+
+  it('Deve retornar uma exceção caso não seja passado userId', async () => {
+    const payload = {
+      taskId: 'anyTaskId',
+      userId: ''
+    }
+    await expect(taskServices.updateUserTask(payload, taskRepository)).rejects.toThrow('userId é obrigatário')
+  })
+
+  it('Deve retornar uma exceção caso não encontre a task', async () => {
+    const payload = {
+      taskId: 'anyTaskId',
+      userId: 'anyUserId'
+    }
+    const fakeTaskRepository = {
+      ...taskRepository,
+      findOne: async () => null
+    }
+    await expect(taskServices.updateUserTask(payload, fakeTaskRepository)).rejects.toThrow('Task não encontrada')
+  })
+
+  it('Deve retornar uma exceção caso não encontre a task no update', async () => {
+    const payload = {
+      taskId: 'anyTaskId',
+      userId: 'anyUserId'
+    }
+    const fakeTaskRepository = {
+      ...taskRepository,
+      update: async () => null
+    }
+    await expect(taskServices.updateUserTask(payload, fakeTaskRepository)).rejects.toThrow('Task não encontrada')
+  })
+
+  it('Deve retornar task atualizada', async () => {
+    const payload = {
+      taskId: 'anyTaskId',
+      userId: 'anyUserId'
+    }
+    await expect(taskServices.updateUserTask(payload, taskRepository)).resolves.toEqual(taskModel)
+  })
+})
+
+describe('Search', () => {
+  const date = new Date()
+
+  const taskModel: TaskModel = {
+    id: 'anyid',
+    title: 'anyTitle',
+    description: 'anyDescription',
+    completed: false,
+    createdAt: date,
+    updatedAt: date,
+    userId: 'anyUserId'
+  }
+
+  const taskRepository: TaskRepository = {
+    register: async () => {
+      return taskModel
+    },
+    findOne: async () => {
+      return taskModel
+    },
+    findAll: async () => {
+      return [taskModel]
+    },
+    update: async () => taskModel
+
+  }
+  it('Deve retornar task de acordo com a busca', async () => {
+    const payload = {
+      taskId: 'anyTaskId',
+      userId: 'anyUserId'
+    }
+    await expect(taskServices.updateUserTask(payload, taskRepository)).resolves.toEqual(taskModel)
   })
 })
