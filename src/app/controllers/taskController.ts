@@ -1,15 +1,14 @@
 import { type NextFunction, type Request, type Response } from 'express'
 import { type CreateTaskDto, type QueryParamsSearchTask } from '@app/dtos/task'
-import { type MiddlewareResponse } from '@app/dtos/middleware'
 import taskServices from '@core/services/task/taskServices'
 import userServices from '@core/services/user/userServices'
 import { taskRepository } from '@infrastructure/database/repository/taskRepository'
 import { userRepository } from '@infrastructure/database/repository/userRepository'
 import { newError } from '@src/core/util/error'
 
-const get = async (middlewareResponse: MiddlewareResponse, req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
+const get = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
-    const userId = middlewareResponse.user?.id as string
+    const userId = req.user?.id as string
 
     const tasks = await taskServices.getAllTasks({ userId }, taskRepository)
     return res.status(200).json({ tasks })
@@ -18,9 +17,9 @@ const get = async (middlewareResponse: MiddlewareResponse, req: Request, res: Re
   }
 }
 
-const create = async (middlewareResponse: MiddlewareResponse, req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
+const create = async (req: Request, res: Response, next: NextFunction): Promise<Response<any, Record<string, any>> | undefined> => {
   try {
-    const userId = middlewareResponse.user?.id as string
+    const userId = req.user?.id as string
     const { title, description }: CreateTaskDto = req.body
 
     const payload = {

@@ -15,4 +15,5 @@ export interface JwtPayload {
 export interface JwtGenerator {
   create: (payload: PayloadJwt) => string
   decode: (token: string) => JwtPayload | null
+  verify: (token: string) => unknown
 }

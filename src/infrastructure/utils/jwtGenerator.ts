@@ -9,5 +9,7 @@ export const jwtGenerator: JwtGenerator = {
   decode: (token: string): JwtPayload | null => {
     const decoded = jwt.decode(token)
     return decoded as JwtPayload
-  }
+  },
+  verify: (token: string) => jwt.verify(token, process.env.JWT_SECRET as string)
+
 }

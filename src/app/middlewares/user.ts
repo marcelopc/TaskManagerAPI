@@ -10,7 +10,10 @@ const get = async (req: Request, res: Response, next: NextFunction): Promise<Res
 
     if (tokenDecoded !== null) {
       const user = await userServices.getUser(tokenDecoded.id, userRepository)
-      next({ user })
+      if (user !== null) {
+        req.user = user
+      }
+      next()
       return
     }
 
